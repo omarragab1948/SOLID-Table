@@ -1,107 +1,89 @@
 import Table from "../patterns/CCTable";
 
-const CCTableUsers = ({ data }) => {
+const CCTableUsers = ({ data, actions, headers, additionalProps }) => {
   return (
     <Table>
       <Table.Header>
-        <Table.HeaderCell>Name</Table.HeaderCell>
-        <Table.HeaderCell>Phone</Table.HeaderCell>
-        <Table.HeaderCell>Email</Table.HeaderCell>
-        <Table.HeaderCell>Orders</Table.HeaderCell>
-        <Table.HeaderCell>Status</Table.HeaderCell>
-        <Table.HeaderCell>Actions</Table.HeaderCell>
+        <Table.Row>
+          {headers?.map((header) => (
+            <Table.HeaderCell key={header.id}>{header.label}</Table.HeaderCell>
+          ))}
+          {actions && <Table.HeaderCell>Actions</Table.HeaderCell>}
+        </Table.Row>
       </Table.Header>
 
-      <Table.Body>
-        {data.map((user) => (
-          <Table.Row key={user.id}>
-            <Table.Cell>{user.name}</Table.Cell>
-            <Table.Cell>{user.phone}</Table.Cell>
-            <Table.Cell>{user.email}</Table.Cell>
-            <Table.Cell>{user.requestedOrders}</Table.Cell>
-            <Table.Cell>{user.status}</Table.Cell>
-            <Table.Cell>
-              <div
-                style={{
-                  display: "flex",
-                  gap: "8px",
-                  justifyContent: "center",
-                }}
+      <tbody>
+        {data?.map((row, index) => (
+          <Table.Row key={row.id} index={index}>
+            {headers?.map((h) => (
+              <Table.Cell
+                key={`${row.id}-${h.id}`}
+                renderFn={additionalProps?.[`onRender${h.id}`]}
+                row={row}
               >
-                <button
-                  title="Edit"
-                  style={{
-                    padding: "6px 12px",
-                    backgroundColor: "#f3f4f6",
-                    color: "#4f46e5",
-                    border: "1px solid #e5e7eb",
-                    borderRadius: "4px",
-                    cursor: "pointer",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "6px",
-                    transition: "all 0.2s ease",
-                    ":hover": {
-                      backgroundColor: "#4f46e5",
-                      color: "white",
-                      borderColor: "#4f46e5",
-                    },
-                  }}
-                >
-                  ✏️ Edit
-                </button>
-                <button
-                  title="Delete"
-                  style={{
-                    padding: "6px 12px",
-                    backgroundColor: "#f3f4f6",
-                    color: "#4f46e5",
-                    border: "1px solid #e5e7eb",
-                    borderRadius: "4px",
-                    cursor: "pointer",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "6px",
-                    transition: "all 0.2s ease",
-                    ":hover": {
-                      backgroundColor: "#4f46e5",
-                      color: "white",
-                      borderColor: "#4f46e5",
-                    },
-                  }}
-                >
-                  🗑️ Delete
-                </button>
-                <button
-                  title="View"
-                  style={{
-                    padding: "6px 12px",
-                    backgroundColor: "#f3f4f6",
-                    color: "#4f46e5",
-                    border: "1px solid #e5e7eb",
-                    borderRadius: "4px",
-                    cursor: "pointer",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "6px",
-                    transition: "all 0.2s ease",
-                    ":hover": {
-                      backgroundColor: "#4f46e5",
-                      color: "white",
-                      borderColor: "#4f46e5",
-                    },
-                  }}
-                >
-                  👁️ View
-                </button>
-              </div>
-            </Table.Cell>
+                {row[h.id]}
+              </Table.Cell>
+            ))}
+            {actions && <Table.Actions actions={actions} />}
           </Table.Row>
         ))}
-      </Table.Body>
+      </tbody>
 
-      <Table.Footer>Total Records: {data.length}</Table.Footer>
+      <Table.Footer>
+        <Table.Row>
+          <td
+            colSpan={actions ? headers?.length + 1 : headers?.length}
+            style={{
+              padding: "12px 16px",
+              textAlign: "center",
+              backgroundColor: "#f8f9fa",
+              fontWeight: "600",
+              borderTop: "2px solid #ddd",
+              borderBottomLeftRadius: "8px",
+              borderBottomRightRadius: "8px",
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <span>Total Records: {data?.length || 0}</span>
+              <div style={{ display: "flex", gap: "8px" }}>
+                <button
+                  style={{
+                    padding: "6px 12px",
+                    backgroundColor: "#4f46e5",
+                    color: "white",
+                    border: "none",
+                    borderRadius: "4px",
+                    cursor: "pointer",
+                  }}
+                >
+                  Previous
+                </button>
+                <span style={{ padding: "6px 12px" }}>Page 1 of 5</span>
+                <button
+                  style={{
+                    padding: "6px 12px",
+                    backgroundColor: "#4f46e5",
+                    color: "white",
+                    border: "none",
+                    borderRadius: "4px",
+                    cursor: "pointer",
+                  }}
+                >
+                  Next
+                </button>
+              </div>
+            </div>
+          </td>
+        </Table.Row>
+      </Table.Footer>
     </Table>
   );
 };
+
 export default CCTableUsers;

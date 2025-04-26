@@ -49,11 +49,87 @@ const users = [
   },
 ];
 function App() {
+  const headers = [
+    {
+      id: "name",
+      label: "Name",
+    },
+    {
+      id: "phone",
+      label: "Phone",
+    },
+    {
+      id: "email",
+      label: "Email",
+    },
+    {
+      id: "requestedOrders",
+      label: "Requested Orders",
+    },
+    {
+      id: "status",
+      label: "Status",
+    },
+    {
+      id: "address",
+      label: "Address",
+    },
+  ];
+  const actions = [
+    {
+      id: "edit",
+      label: "Edit",
+      icon: "✏️", // Pencil emoji
+    },
+    {
+      id: "delete",
+      label: "Delete",
+      icon: "🗑️", // Wastebasket emoji
+    },
+    {
+      id: "view",
+      label: "View",
+      icon: "👁️", // Eye emoji
+    },
+  ];
+  const additionalProps = {
+    onRenderstatus: (item) => {
+      const statusColors = {
+        active: "green",
+        pending: "orange",
+        inactive: "red",
+      };
+      const bgColor = statusColors[item?.status] || "black";
+      return (
+        <span
+          style={{
+            backgroundColor: bgColor,
+            color: "#fff",
+            padding: "6px 8px",
+            borderRadius: "4px",
+            display: "inline-block",
+            fontSize: "0.875rem",
+            fontWeight: "500",
+            width: "80px",
+            textAlign: "center",
+            boxSizing: "border-box",
+          }}
+        >
+          {item?.status}
+        </span>
+      );
+    },
+  };
   return (
     <>
       <Users />
       <Products />
-      <CCTableUsers data={users} />
+      <CCTableUsers
+        data={users}
+        headers={headers}
+        actions={actions}
+        additionalProps={additionalProps}
+      />
     </>
   );
 }

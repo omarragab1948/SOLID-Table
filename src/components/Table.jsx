@@ -5,6 +5,7 @@ const Table = ({ data, actions, headers, additionalProps }) => {
         overflowX: "auto",
         borderRadius: "8px",
         boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+        maxWidth: "100%",
       }}
     >
       <table
@@ -14,6 +15,7 @@ const Table = ({ data, actions, headers, additionalProps }) => {
           borderSpacing: 0,
           fontFamily: "'Segoe UI', sans-serif",
           fontSize: "14px",
+          tableLayout: "auto",
         }}
       >
         <thead>
@@ -34,6 +36,8 @@ const Table = ({ data, actions, headers, additionalProps }) => {
                   ":lastChild": {
                     borderRight: "none",
                   },
+                  whiteSpace: "nowrap",
+                  width: `${100 / (headers.length + (actions ? 1 : 0))}%`,
                 }}
               >
                 {header.label}
@@ -54,6 +58,7 @@ const Table = ({ data, actions, headers, additionalProps }) => {
                   ":lastChild": {
                     borderRight: "none",
                   },
+                  width: `${100 / (headers.length + (actions ? 1 : 0))}%`,
                 }}
               >
                 Actions

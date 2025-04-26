@@ -8,13 +8,19 @@ const Products = () => {
     { id: "category", label: "Category" },
     { id: "stock", label: "In Stock" },
     { id: "image", label: "Image" },
+    { id: "tax", label: "Tax (%)" },
+    { id: "status", label: "Status" },
+    { id: "desc", label: "Description" },
+    { id: "rating", label: "Rating" },
+    { id: "reviews", label: "Reviews" },
+    { id: "shipping", label: "Shipping" },
   ];
 
   const actions = [
     {
       id: "edit",
       label: "Edit",
-      icon: "✏️", 
+      icon: "✏️",
     },
     {
       id: "delete",
@@ -35,6 +41,12 @@ const Products = () => {
       category: "Electronics",
       stock: 20,
       image: "https://via.placeholder.com/80",
+      tax: 14,
+      status: "active",
+      desc: "fdwfwfws",
+      rating: 4.5,
+      reviews: 100,
+      shipping: 20,
     },
     {
       id: 2,
